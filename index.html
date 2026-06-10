@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quinn Berry — Freelance Website Designer</title>
+<meta name="description" content="Quinn Berry is a freelance website designer in Cambridge, MA, designing and building clean, considered websites for athletes, professionals, and small brands." />
+
+<!--
+  ASSETS — Client case studies now use live <iframe> previews of the deployed sites; no image assets are required for those.
+  Optional only: bates-headstrong.jpg — small visual for the Bates × Headstrong card (not currently rendered).
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ---------- design tokens ---------- */
+  :root{
+    --bg:       #F3F0E9;
+    --ink:      #171614;
+    --accent:   #C0492A;
+    --muted:    #6B665E;
+    --hairline: #D8D3C8;
+    --dark-bg:  #14110E;
+    --dark-ink: #EDE7DA;
+    --dark-muted:#8E867A;
+
+    --display: "Fraunces", Georgia, serif;
+    --body:    "Inter", system-ui, sans-serif;
+    --mono:    "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+    --maxw: 1240px;
+    --gutter: clamp(20px, 4vw, 56px);
+
+    /* tighter vertical rhythm */
+    --sec-pad: clamp(48px, 6.5vw, 88px);
+    --case-pad: clamp(56px, 7vw, 96px);
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{ background:var(--accent); color:var(--bg); }
+
+  a{ color:inherit; text-decoration:none; }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding-left:var(--gutter);
+    padding-right:var(--gutter);
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 20px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .eyebrow::before{
+    content:""; display:inline-block;
+    width:24px; height:1px; background:var(--accent);
+  }
+
+  h1,h2,h3{ font-family:var(--display); font-weight:500; letter-spacing:-0.01em; line-height:1.04; margin:0; }
+  h1{ font-size:clamp(52px, 9.5vw, 124px); letter-spacing:-0.025em; }
+  h2{ font-size:clamp(34px, 4.6vw, 60px); }
+  h3{ font-size:clamp(22px, 2.4vw, 30px); font-weight:500; }
+  p{ margin:0 0 1em; }
+  .lead{ font-size:clamp(17px, 1.4vw, 19px); color:var(--ink); max-width:62ch; }
+
+  /* ---------- top nav ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,240,233,0.86);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hairline);
+  }
+  .nav__inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 0;
+  }
+  .nav__brand{
+    font-family:var(--mono);
+    font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
+  }
+  .nav__brand b{ font-weight:500; }
+  .nav__links{
+    display:flex; gap:24px;
+    font-family:var(--mono);
+    font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .nav__links a:hover{ color:var(--ink); }
+  .nav__pill{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink);
+    padding:6px 12px;
+    border:1px solid var(--ink);
+    border-radius:999px;
+  }
+  .nav__pill::before{
+    content:""; width:7px; height:7px; border-radius:50%;
+    background:var(--accent);
+  }
+  @media (max-width:640px){
+    .nav__links{ gap:14px; font-size:11px; }
+    .nav__pill{ display:none; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:clamp(56px, 10vw, 120px) 0 clamp(40px, 6vw, 80px); }
+  .hero__tagline{
+    font-family:var(--mono);
+    font-size:13px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:24px;
+    display:flex; gap:18px; flex-wrap:wrap;
+  }
+  .hero__tagline span{ color:var(--ink); }
+  .hero h1{ margin-bottom:24px; }
+  .hero__lede{
+    font-family:var(--display);
+    font-size:clamp(22px, 2.4vw, 32px);
+    font-weight:400;
+    line-height:1.3;
+    max-width:34ch;
+    color:var(--ink);
+    margin-bottom:32px;
+  }
+  .hero__lede em{ font-style:italic; color:var(--accent); }
+  .hero__meta{
+    display:flex; gap:36px; flex-wrap:wrap;
+    font-family:var(--mono);
+    font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .hero__meta b{ display:block; color:var(--ink); margin-bottom:4px; font-weight:500; }
+
+  /* ---------- capabilities band ---------- */
+  .caps{ padding:32px 0; border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline); }
+  .caps__list{
+    display:flex; flex-wrap:wrap; gap:0 22px;
+    font-family:var(--mono);
+    font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink);
+    line-height:2.2;
+  }
+  .caps__list span{ color:var(--muted); }
+
+  /* ---------- section header (Selected Work intro) ---------- */
+  .section-head{
+    padding:var(--sec-pad) 0 24px;
+    display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:end;
+  }
+  .section-head h2{ max-width:18ch; }
+  .section-head .sub{
+    color:var(--muted); max-width:34ch; font-size:15px;
+  }
+  @media (max-width:760px){
+    .section-head{ grid-template-columns:1fr; gap:16px; }
+  }
+
+  /* ---------- case studies ---------- */
+  .case{
+    padding:var(--case-pad) 0;
+    border-top:1px solid var(--hairline);
+  }
+  .case__head{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-bottom:36px;
+  }
+  .case__meta{
+    display:flex; gap:24px; flex-wrap:wrap;
+    font-family:var(--mono); font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .case__meta b{ color:var(--ink); font-weight:500; }
+  .case__title{ max-width:18ch; }
+  .case__sub{
+    font-family:var(--display); font-style:italic;
+    font-size:clamp(18px, 1.9vw, 24px);
+    color:var(--muted); font-weight:400;
+    max-width:48ch;
+  }
+
+  .case__grid{
+    display:grid;
+    grid-template-columns:repeat(12, 1fr);
+    gap:32px;
+    align-items:start;
+  }
+  .case__copy{ grid-column:1 / 6; }
+  .case__media{ grid-column:6 / 13; }
+  @media (max-width:900px){
+    .case__copy, .case__media{ grid-column:1 / -1; }
+  }
+
+  .case__copy p + p{ margin-top:0.8em; }
+  .case__copy .lead{ margin-bottom:16px; }
+  .case__bullets{
+    list-style:none; padding:0; margin:18px 0 0;
+    border-top:1px solid var(--hairline);
+  }
+  .case__bullets li{
+    padding:10px 0;
+    border-bottom:1px solid var(--hairline);
+    display:grid; grid-template-columns:120px 1fr; gap:20px;
+    font-size:14px;
+  }
+  .case__bullets .lbl{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  .case__cta{
+    display:inline-flex; align-items:center; gap:12px;
+    margin-top:24px;
+    font-family:var(--mono); font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--ink);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:5px;
+    transition:color .2s ease, border-color .2s ease, gap .2s ease;
+  }
+  .case__cta:hover{ color:var(--accent); border-color:var(--accent); gap:18px; }
+  .case__cta::after{ content:"↗"; }
+
+  /* ---------- image / placeholder frames ---------- */
+  .frame{
+    position:relative;
+    width:100%;
+    background:#EAE5D9;
+    border:1px solid var(--hairline);
+    aspect-ratio:16 / 10;
+    overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .frame__ph{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px; padding:28px; text-align:center;
+    background:
+      repeating-linear-gradient(135deg, transparent 0 18px, rgba(23,22,20,0.035) 18px 19px);
+  }
+  .frame__ph .tag{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .frame__ph .name{
+    font-family:var(--display); font-size:clamp(16px, 1.8vw, 22px); color:var(--ink);
+  }
+
+  /* ---------- live iframe preview variant ---------- */
+  .frame--live{
+    display:block;
+    cursor:pointer;
+    transition:transform .25s ease;
+  }
+  .frame--live:hover{ transform:translateY(-2px); }
+  .frame--live:focus-visible{ outline-offset:4px; }
+  .frame__viewport{
+    position:absolute; top:0; left:0;
+    width:200%; height:200%;
+    transform-origin:top left;
+    transform:scale(0.5);
+    pointer-events:none;
+    z-index:1;
+  }
+  .frame__viewport iframe{
+    width:100%; height:100%;
+    border:0; display:block;
+    background:#EAE5D9;
+  }
+  .frame__hint{
+    position:absolute; bottom:12px; right:12px;
+    z-index:2;
+    font-family:var(--mono); font-size:10px;
+    letter-spacing:0.14em; text-transform:uppercase;
+    background:rgba(23,22,20,0.88); color:var(--bg);
+    padding:6px 10px;
+    pointer-events:none;
+    opacity:0; transition:opacity .25s ease;
+  }
+  .frame--live:hover .frame__hint,
+  .frame--live:focus-visible .frame__hint{ opacity:1; }
+
+  /* ---------- "also" inset section (Bates + Personal projects) ---------- */
+  .also{
+    padding:var(--sec-pad) 0;
+    border-top:1px solid var(--hairline);
+  }
+  .also__head{ margin-bottom:36px; }
+  .also__grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:32px;
+  }
+  @media (max-width:760px){ .also__grid{ grid-template-columns:1fr; gap:24px; } }
+  .also__card{
+    border:1px solid var(--hairline);
+    padding:28px;
+    display:flex; flex-direction:column; gap:12px;
+    background:#EFEBE2;
+  }
+  .also__card .kicker{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .also__card h3{ max-width:22ch; }
+  .also__card p{ margin:0; font-size:15px; color:var(--ink); }
+  .also__card .stats{
+    display:flex; gap:18px; flex-wrap:wrap;
+    margin-top:4px;
+    font-family:var(--mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .also__card .stats b{ color:var(--ink); font-weight:500; }
+
+  /* ---------- background ---------- */
+  .bg-sect{ padding:var(--sec-pad) 0; border-top:1px solid var(--hairline); }
+  .bg-sect .grid{
+    display:grid; grid-template-columns:1fr 1.4fr; gap:48px; align-items:start;
+  }
+  .bg-sect h2{ max-width:14ch; }
+  .bg-sect p{ max-width:58ch; }
+  @media (max-width:760px){ .bg-sect .grid{ grid-template-columns:1fr; gap:24px; } }
+
+  /* ---------- contact (dark band) ---------- */
+  .contact{
+    background:var(--dark-bg); color:var(--dark-ink);
+    padding:clamp(72px, 9vw, 120px) 0;
+  }
+  .contact .eyebrow{ color:var(--dark-muted); }
+  .contact h2{ color:var(--dark-ink); max-width:16ch; margin-bottom:20px; }
+  .contact__intro{
+    max-width:52ch; color:var(--dark-muted); margin-bottom:36px; font-size:16px;
+  }
+  .contact__email{
+    font-family:var(--display);
+    font-size:clamp(28px, 4vw, 52px);
+    font-style:italic;
+    display:inline-block;
+    border-bottom:1px solid rgba(237,231,218,0.35);
+    padding-bottom:6px;
+  }
+  .contact__email:hover{ color:var(--accent); border-color:var(--accent); }
+  .contact__lines{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:24px 40px;
+    margin-top:56px;
+    font-family:var(--mono); font-size:13px; letter-spacing:0.06em;
+  }
+  @media (max-width:760px){ .contact__lines{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:480px){ .contact__lines{ grid-template-columns:1fr; } }
+  .contact__lines .lbl{
+    display:block;
+    color:var(--dark-muted);
+    text-transform:uppercase; letter-spacing:0.16em; font-size:11px;
+    margin-bottom:6px;
+  }
+  .contact__lines a{
+    color:var(--dark-ink);
+    border-bottom:1px solid rgba(237,231,218,0.3);
+    transition:color .2s, border-color .2s;
+    padding-bottom:2px;
+  }
+  .contact__lines a:hover{ color:var(--accent); border-color:var(--accent); }
+
+  .placeholder-link{
+    font-family:var(--mono); font-size:11px;
+    color:var(--muted);
+    border:1px dashed var(--hairline);
+    padding:2px 8px;
+    text-transform:uppercase; letter-spacing:0.1em;
+  }
+  .contact .placeholder-link{
+    color:var(--dark-muted);
+    border-color:rgba(237,231,218,0.25);
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    padding:22px 0;
+    background:var(--dark-bg);
+    color:var(--dark-muted);
+    font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+    border-top:1px solid rgba(237,231,218,0.1);
+  }
+  footer .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+
+  /* ---------- scroll reveal ---------- */
+  .reveal{
+    opacity:0; transform:translateY(14px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .reveal.is-in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
+
+<header class="nav" aria-label="Primary">
+  <div class="wrap nav__inner">
+    <a class="nav__brand" href="#top"><b>Quinn Berry</b> &nbsp;/&nbsp; Freelance Website Design</a>
+    <nav class="nav__links" aria-label="Section navigation">
+      <a href="#work">Work</a>
+      <a href="#also">Also</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="nav__pill">Booking 2026</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============== HERO ============== -->
+  <section id="top" class="hero">
+    <div class="wrap reveal">
+      <div class="hero__tagline">
+        <span>Freelance Website Designer</span>
+        <span aria-hidden="true">·</span>
+        <span>Cambridge, MA</span>
+      </div>
+      <h1>Quinn&nbsp;Berry.</h1>
+      <p class="hero__lede">
+        I design and build clean, <em>considered</em> websites for athletes, professionals, and small <em>brands</em>.
+      </p>
+      <div class="hero__meta">
+        <div><b>Services</b>Brand · Web Design · Build</div>
+        <div><b>Based in</b>Cambridge, MA</div>
+        <div><b>Availability</b>Booking 2026 projects</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== CAPABILITIES BAND ============== -->
+  <section class="caps" aria-label="Services">
+    <div class="wrap reveal">
+      <div class="caps__list">
+        <span>Brand &amp; Identity</span><span aria-hidden="true">·</span>
+        <span>Website Design</span><span aria-hidden="true">·</span>
+        <span>Design-to-Build (HTML/CSS/JS)</span><span aria-hidden="true">·</span>
+        <span>Information Design</span><span aria-hidden="true">·</span>
+        <span>Content &amp; Conversion</span><span aria-hidden="true">·</span>
+        <span>Design Systems</span><span aria-hidden="true">·</span>
+        <span>Deployed on GitHub Pages</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SELECTED WORK ============== -->
+  <section id="work">
+    <div class="wrap section-head reveal">
+      <div>
+        <p class="eyebrow">Selected Work</p>
+        <h2>Recent client sites.</h2>
+      </div>
+      <p class="sub">Three websites for three different audiences. Each one designed, built, and shipped end-to-end.</p>
+    </div>
+
+    <!-- ============== CASE 01 — COOSEING ============== -->
+    <section id="case-cooseing" class="case">
+      <div class="wrap reveal">
+        <div class="case__head">
+          <p class="eyebrow">Case 01 / Brand &amp; Web</p>
+          <h2 class="case__title">Cooseing.</h2>
+          <p class="case__sub">Brand and website for Max Mancuso &mdash; HYROX PRO athlete, online coach, and faith-driven creator in Charleston, SC.</p>
+          <div class="case__meta">
+            <span><b>Client</b> Max Mancuso</span>
+            <span><b>Role</b> Brand · Web Design · Build</span>
+            <span><b>Live</b> quinn-berry.github.io/Cooseing</span>
+          </div>
+        </div>
+
+        <div class="case__grid">
+          <div class="case__copy">
+            <p class="lead">Cooseing rests on a clear brand line &mdash; <em>"Disciple First. Athlete Second."</em> &mdash; and the site carries that voice across a single, scrolling page: mission, a results section with real race finishes, a coaching funnel into RevitalizeU, sponsors, a community run club, and contact. I shaped the brand voice and designed the experience around one outcome: turning an audience into coaching clients. Across the engagement, Max's social following grew from roughly 200 to 80,000+.</p>
+            <ul class="case__bullets">
+              <li><span class="lbl">Brand</span><span>"Disciple First. Athlete Second." &mdash; voice, art direction, identity.</span></li>
+              <li><span class="lbl">Structure</span><span>Single-page architecture &mdash; mission, race results, coaching, sponsors, run club, contact.</span></li>
+              <li><span class="lbl">Reach</span><span>Social following grew from roughly 200 to 80,000+ during the engagement.</span></li>
+            </ul>
+            <a class="case__cta" href="https://quinn-berry.github.io/Cooseing/" target="_blank" rel="noopener noreferrer" aria-label="Open Cooseing live site in a new tab">Visit Cooseing</a>
+          </div>
+          <div class="case__media">
+            <a class="frame frame--live" href="https://quinn-berry.github.io/Cooseing/" target="_blank" rel="noopener noreferrer" aria-label="Open Cooseing live site in a new tab">
+              <div class="frame__ph">
+                <span class="tag">Live preview</span>
+                <span class="name">COOSEING &mdash; quinn-berry.github.io/Cooseing</span>
+              </div>
+              <div class="frame__viewport">
+                <iframe src="https://quinn-berry.github.io/Cooseing/" loading="lazy" title="Cooseing &mdash; live site preview"></iframe>
+              </div>
+              <span class="frame__hint">Open live site ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== CASE 02 — ADA ANDERSON ============== -->
+    <section id="case-ada" class="case">
+      <div class="wrap reveal">
+        <div class="case__head">
+          <p class="eyebrow">Case 02 / Editorial &amp; Web</p>
+          <h2 class="case__title">Ada Anderson.</h2>
+          <p class="case__sub">Personal site for a Customer Success and Account Management professional, open to roles in NYC.</p>
+          <div class="case__meta">
+            <span><b>Client</b> Ada Anderson</span>
+            <span><b>Role</b> Identity · Information Design · Build</span>
+            <span><b>Live</b> adamay425.github.io/Ada-Anderson-</span>
+          </div>
+        </div>
+
+        <div class="case__grid">
+          <div class="case__copy">
+            <p class="lead">A navy editorial identity across a multi-page architecture &mdash; home, about, experience, and a structured case study. The brief was information design: take a dense professional history and translate it into a clear, persuasive narrative the reader can absorb without effort. The metrics on the site are Ada's career achievements; I organized and designed around them.</p>
+            <a class="case__cta" href="https://adamay425.github.io/Ada-Anderson-/" target="_blank" rel="noopener noreferrer" aria-label="Open Ada Anderson live site in a new tab">Visit live site</a>
+          </div>
+          <div class="case__media">
+            <a class="frame frame--live" href="https://adamay425.github.io/Ada-Anderson-/" target="_blank" rel="noopener noreferrer" aria-label="Open Ada Anderson live site in a new tab">
+              <div class="frame__ph">
+                <span class="tag">Live preview</span>
+                <span class="name">ADA ANDERSON &mdash; adamay425.github.io/Ada-Anderson-</span>
+              </div>
+              <div class="frame__viewport">
+                <iframe src="https://adamay425.github.io/Ada-Anderson-/" loading="lazy" title="Ada Anderson &mdash; live site preview"></iframe>
+              </div>
+              <span class="frame__hint">Open live site ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== CASE 03 — AB SOCIALS (brief, secondary entry) ============== -->
+    <section id="case-absocials" class="case">
+      <div class="wrap reveal">
+        <div class="case__head">
+          <p class="eyebrow">Additional Work / Identity &amp; Web</p>
+          <h2 class="case__title">AB Socials.</h2>
+          <p class="case__sub">Brand and one-page site for Ally Barron's social-media practice, plus a client-facing rate sheet.</p>
+          <div class="case__meta">
+            <span><b>Client</b> Ally Barron</span>
+            <span><b>Role</b> Identity · Web · Rate Sheet</span>
+            <span><b>Live</b> quinn-berry.github.io/Ally-Barron</span>
+          </div>
+        </div>
+
+        <div class="case__grid">
+          <div class="case__copy">
+            <p class="lead">A short engagement: a light identity, a one-page site organized around inquiry, and a client-facing rate sheet sharing the same typographic system.</p>
+            <a class="case__cta" href="https://quinn-berry.github.io/Ally-Barron/" target="_blank" rel="noopener noreferrer" aria-label="Open AB Socials live site in a new tab">Visit live site</a>
+          </div>
+          <div class="case__media">
+            <a class="frame frame--live" href="https://quinn-berry.github.io/Ally-Barron/" target="_blank" rel="noopener noreferrer" aria-label="Open AB Socials live site in a new tab">
+              <div class="frame__ph">
+                <span class="tag">Live preview</span>
+                <span class="name">AB SOCIALS &mdash; quinn-berry.github.io/Ally-Barron</span>
+              </div>
+              <div class="frame__viewport">
+                <iframe src="https://quinn-berry.github.io/Ally-Barron/" loading="lazy" title="AB Socials &mdash; live site preview"></iframe>
+              </div>
+              <span class="frame__hint">Open live site ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============== ALSO (Bates + Personal projects) ============== -->
+  <section id="also" class="also">
+    <div class="wrap reveal">
+      <div class="also__head">
+        <p class="eyebrow">Also</p>
+        <h2>Brand campaigns &amp; personal projects.</h2>
+      </div>
+
+      <div class="also__grid">
+
+        <article class="also__card">
+          <span class="kicker">Brand Campaign · 2018–2021</span>
+          <h3>Bates Athletics × Headstrong Foundation.</h3>
+          <p>Designed and led a multi-season fundraising campaign for the Headstrong Foundation &mdash; identity, season-over-season visual evolution, social and on-campus collateral, and the strategy that helped a single game-day moment become a recurring annual one.</p>
+          <div class="stats">
+            <span><b>Three</b> consecutive national titles</span>
+            <span><b>$70,000+</b> raised</span>
+          </div>
+        </article>
+
+        <article class="also__card">
+          <span class="kicker">Personal Research · 2024–2026</span>
+          <h3>LC15 &amp; Trident-15 &mdash; decision design, in code.</h3>
+          <p>Two self-directed projects exploring how design thinking applies to dense, time-pressured decisions. <b>LC15</b> is a confidence-scoring engine, screener, and HTML dashboard (iterated v1–v4) for intraday equity setups. <b>Trident-15</b> is a Python automation layer integrating a brokerage API (via <code style="font-family:var(--mono);font-size:0.92em;">ib_insync</code>) and a market-data API, with a 25-field trade-journaling pipeline. Both paper-trading, both informing how I think about designing decision surfaces.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== BACKGROUND ============== -->
+  <section id="background" class="bg-sect">
+    <div class="wrap reveal">
+      <div class="grid">
+        <div>
+          <p class="eyebrow">Background</p>
+          <h2>A designer, end-to-end.</h2>
+        </div>
+        <div>
+          <p>Studied Computer Science and Graphic Design at Bates College &mdash; an interdisciplinary path that closed with a senior thesis on AI bias in generative systems. Design leads in everything I make; the technical training is what lets me realize a design end-to-end, without handing it off.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== CONTACT ============== -->
+  <section id="contact" class="contact">
+    <div class="wrap reveal">
+      <p class="eyebrow">Contact</p>
+      <h2>Let's talk about your site.</h2>
+      <p class="contact__intro">
+        Booking website projects for 2026 &mdash; brand-and-build, redesigns, or single-page sites. Best way to start is a short note about what you're working on.
+      </p>
+      <a class="contact__email" href="mailto:qjberry@gmail.com?subject=Website%20project%20inquiry">qjberry@gmail.com</a>
+
+      <div class="contact__lines">
+        <div>
+          <span class="lbl">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/quinn-berry-6957a4224/" target="_blank" rel="noopener noreferrer">linkedin.com/in/quinn-berry</a>
+        </div>
+        <div>
+          <span class="lbl">GitHub</span>
+          <a href="https://github.com/Quinn-Berry">github.com/Quinn-Berry</a>
+        </div>
+        <div>
+          <span class="lbl">Based in</span>
+          <span style="color:var(--dark-ink);">Cambridge, MA</span>
+        </div>
+        <div>
+          <span class="lbl">Availability</span>
+          <span style="color:var(--dark-ink);">Booking 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Quinn Berry</span>
+    <span>Designed and built in Cambridge, MA</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const targets = document.querySelectorAll('.reveal');
+    if (reduce || !('IntersectionObserver' in window)) {
+      targets.forEach(t => t.classList.add('is-in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    targets.forEach(t => io.observe(t));
+  })();
+</script>
+
+</body>
+</html>
